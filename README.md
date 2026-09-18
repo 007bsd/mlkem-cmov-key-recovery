@@ -156,10 +156,12 @@ wolfSSL case above.
 
 ## Reproduction
 
-Attack code, math, captured transcripts, and step-by-step reproduction for the key recovery are in
-[`avx2-cmov/`](avx2-cmov/). The reduced-parameter model experiments behind the paper's impossibility
-result (the spanning lemma, the session-count law, and the rank-climb figure) are in
-[`scripts/`](scripts/).
+Two recoveries are documented here. The full-coverage skipped `cmov` fault, a complete
+plaintext-checking oracle recovering the key by coefficient isolation in `Theta(kn)` queries, is
+in [`avx2-cmov/`](avx2-cmov/). The single-unverified-coordinate incomplete comparison (`|T| = 1`),
+which recovers the full `(s, e)` by decryption-noise regression at about `2kn` sessions, is in
+[`incomplete-comparison-T1/`](incomplete-comparison-T1/) with the math, the solver, and the
+measured `2kn/|T|` sweep.
 
 ## Test vectors
 

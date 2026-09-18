@@ -1,0 +1,43 @@
+=== |T|=1 ten-key confirmation ===
+  P=512 seed=0 ct=1120 correct=1024/1024 FULL=True
+  P=512 seed=1 ct=1120 correct=1024/1024 FULL=True
+  P=512 seed=2 ct=1120 correct=1024/1024 FULL=True
+  P=512 seed=3 ct=1120 correct=1024/1024 FULL=True
+  P=512 seed=4 ct=1120 correct=1024/1024 FULL=True
+  P=512 seed=5 ct=1120 correct=1024/1024 FULL=True
+  P=512 seed=6 ct=1120 correct=1024/1024 FULL=True
+  P=512 seed=7 ct=1120 correct=1024/1024 FULL=True
+  P=512 seed=8 ct=1120 correct=1024/1024 FULL=True
+  P=512 seed=9 ct=1120 correct=1024/1024 FULL=True
+  >> P=512 |T|=1 : 10/10 full at ct=1120
+  P=768 seed=0 ct=1680 correct=1536/1536 FULL=True
+  P=768 seed=1 ct=1680 correct=1536/1536 FULL=True
+  P=768 seed=2 ct=1680 correct=1536/1536 FULL=True
+  P=768 seed=3 ct=1680 correct=1536/1536 FULL=True
+  P=768 seed=4 ct=1680 correct=1536/1536 FULL=True
+  P=768 seed=5 ct=1680 correct=1536/1536 FULL=True
+  P=768 seed=6 ct=1680 correct=1536/1536 FULL=True
+  P=768 seed=7 ct=1680 correct=1536/1536 FULL=True
+  P=768 seed=8 ct=1680 correct=1536/1536 FULL=True
+  P=768 seed=9 ct=1680 correct=1536/1536 FULL=True
+  >> P=768 |T|=1 : 10/10 full at ct=1680
+  P=1024 seed=0 ct=2220 correct=2048/2048 FULL=True
+  P=1024 seed=1 ct=2220 correct=2048/2048 FULL=True
+  P=1024 seed=2 ct=2220 correct=2048/2048 FULL=True
+  P=1024 seed=3 ct=2220 correct=2048/2048 FULL=True
+  P=1024 seed=4 ct=2220 correct=2048/2048 FULL=True
+  P=1024 seed=5 ct=2220 correct=2048/2048 FULL=True
+  P=1024 seed=6 ct=2220 correct=2048/2048 FULL=True
+  P=1024 seed=7 ct=2220 correct=2048/2048 FULL=True
+  P=1024 seed=8 ct=2220 correct=2048/2048 FULL=True
+  P=1024 seed=9 ct=2220 correct=2048/2048 FULL=True
+  >> P=1024 |T|=1 : 10/10 full at ct=2220
+=== |T| sweep, ML-KEM-1024 (DIM=2048), seed 0 ===
+  |T|= 1  full@ct=2088 (sessions)  ~2kn/|T|=2048  corr=2048/2048
+  |T|= 2  full@ct=1044 (sessions)  ~2kn/|T|=1024  corr=2048/2048
+  |T|= 4  full@ct=522 (sessions)  ~2kn/|T|=512  corr=2048/2048
+  |T|= 8  full@ct=261 (sessions)  ~2kn/|T|=256  corr=2048/2048
+  |T|=16  full@ct=130 (sessions)  ~2kn/|T|=128  corr=2048/2048
+  |T|=32  full@ct=65 (sessions)  ~2kn/|T|=64  corr=2048/2048
+  |T|=51  full@ct=43 (sessions)  ~2kn/|T|=40  corr=2048/2048
+=== done ===
