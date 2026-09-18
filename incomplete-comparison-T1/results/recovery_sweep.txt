@@ -1,43 +1,21 @@
-=== |T|=1 ten-key confirmation ===
-  P=512 seed=0 ct=1120 correct=1024/1024 FULL=True
-  P=512 seed=1 ct=1120 correct=1024/1024 FULL=True
-  P=512 seed=2 ct=1120 correct=1024/1024 FULL=True
-  P=512 seed=3 ct=1120 correct=1024/1024 FULL=True
-  P=512 seed=4 ct=1120 correct=1024/1024 FULL=True
-  P=512 seed=5 ct=1120 correct=1024/1024 FULL=True
-  P=512 seed=6 ct=1120 correct=1024/1024 FULL=True
-  P=512 seed=7 ct=1120 correct=1024/1024 FULL=True
-  P=512 seed=8 ct=1120 correct=1024/1024 FULL=True
-  P=512 seed=9 ct=1120 correct=1024/1024 FULL=True
-  >> P=512 |T|=1 : 10/10 full at ct=1120
-  P=768 seed=0 ct=1680 correct=1536/1536 FULL=True
-  P=768 seed=1 ct=1680 correct=1536/1536 FULL=True
-  P=768 seed=2 ct=1680 correct=1536/1536 FULL=True
-  P=768 seed=3 ct=1680 correct=1536/1536 FULL=True
-  P=768 seed=4 ct=1680 correct=1536/1536 FULL=True
-  P=768 seed=5 ct=1680 correct=1536/1536 FULL=True
-  P=768 seed=6 ct=1680 correct=1536/1536 FULL=True
-  P=768 seed=7 ct=1680 correct=1536/1536 FULL=True
-  P=768 seed=8 ct=1680 correct=1536/1536 FULL=True
-  P=768 seed=9 ct=1680 correct=1536/1536 FULL=True
-  >> P=768 |T|=1 : 10/10 full at ct=1680
-  P=1024 seed=0 ct=2220 correct=2048/2048 FULL=True
-  P=1024 seed=1 ct=2220 correct=2048/2048 FULL=True
-  P=1024 seed=2 ct=2220 correct=2048/2048 FULL=True
-  P=1024 seed=3 ct=2220 correct=2048/2048 FULL=True
-  P=1024 seed=4 ct=2220 correct=2048/2048 FULL=True
-  P=1024 seed=5 ct=2220 correct=2048/2048 FULL=True
-  P=1024 seed=6 ct=2220 correct=2048/2048 FULL=True
-  P=1024 seed=7 ct=2220 correct=2048/2048 FULL=True
-  P=1024 seed=8 ct=2220 correct=2048/2048 FULL=True
-  P=1024 seed=9 ct=2220 correct=2048/2048 FULL=True
-  >> P=1024 |T|=1 : 10/10 full at ct=2220
-=== |T| sweep, ML-KEM-1024 (DIM=2048), seed 0 ===
-  |T|= 1  full@ct=2088 (sessions)  ~2kn/|T|=2048  corr=2048/2048
-  |T|= 2  full@ct=1044 (sessions)  ~2kn/|T|=1024  corr=2048/2048
-  |T|= 4  full@ct=522 (sessions)  ~2kn/|T|=512  corr=2048/2048
-  |T|= 8  full@ct=261 (sessions)  ~2kn/|T|=256  corr=2048/2048
-  |T|=16  full@ct=130 (sessions)  ~2kn/|T|=128  corr=2048/2048
-  |T|=32  full@ct=65 (sessions)  ~2kn/|T|=64  corr=2048/2048
-  |T|=51  full@ct=43 (sessions)  ~2kn/|T|=40  corr=2048/2048
-=== done ===
+ML-KEM-512 N=70000 (68x2kn): 5/5 keys full
+ML-KEM-768 N=70000 (46x2kn): 4/5 keys full
+ML-KEM-768 N=90000 (59x2kn): 5/5 keys full
+ML-KEM-1024 N=28000 (14x2kn): 4/5 keys full
+ML-KEM-1024 N=34000 (17x2kn): 5/5 keys full
+### MS DONE ###
+=== |T|=1 per-param true minimum (finer) ===
+  ML-KEM-512: full at 52x2kn (N=53248)
+  ML-KEM-768: full at 40x2kn (N=61440)
+  ML-KEM-1024: full at 12x2kn (N=24576)
+=== |T| sweep 1024, true minima (finer) ===
+  |T|= 1: full at N= 22528 (11x2kn/|T|)
+  |T|= 2: full at N= 11264 (11x2kn/|T|)
+  |T|= 4: full at N=  5632 (11x2kn/|T|)
+  |T|= 8: full at N=  2816 (11x2kn/|T|)
+  |T|=16: full at N=  1408 (11x2kn/|T|)
+  |T|=32: full at N=   704 (11x2kn/|T|)
+  |T|=51: full at N=   441 (11x2kn/|T|)
+### REFINED DONE ###
+  P=512 |T|=1 ct= 40000 eqns=  40000 LS=979/1024 ICD=988/1024 s=497/512 FULL=False [817s]
+  P=512 |T|=1 ct= 52000 eqns=  52000 LS=1009/1024 ICD=1010/1024 s=506/512 FULL=False [1054s]

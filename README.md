@@ -159,7 +159,8 @@ wolfSSL case above.
 Two recoveries are documented here. The full-coverage skipped `cmov` fault, a complete
 plaintext-checking oracle recovering the key by coefficient isolation in `Theta(kn)` queries, is
 in [`avx2-cmov/`](avx2-cmov/). The single-unverified-coordinate incomplete comparison (`|T| = 1`),
-which recovers the full `(s, e)` by decryption-noise regression at about `2kn` sessions, is in
+which recovers the full key by decryption-noise regression in tens of thousands of sessions
+(a few tens times the `2kn` information floor), is in
 [`incomplete-comparison-T1/`](incomplete-comparison-T1/) with the math, the solver, and the
 measured `2kn/|T|` sweep.
 
