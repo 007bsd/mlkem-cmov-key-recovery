@@ -1,0 +1,22 @@
+[package]
+name = "kyber_poc"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "kyber_poc"
+path = "src/main.rs"
+
+[dependencies]
+pqc_kyber = { path = "../rust-kyber", default-features = false, features = ["poc", "std"] }
+rand_core = { version = "0.6.4", default-features = false }
+
+[features]
+# Passthrough: `--features avx2` selects the (vulnerable) avx2 backend in the
+# dependency. Default (no feature) = the reference backend.
+avx2 = ["pqc_kyber/avx2"]
+kyber512 = ["pqc_kyber/kyber512"]
+kyber1024 = ["pqc_kyber/kyber1024"]
+
+[profile.release]
+opt-level = 3

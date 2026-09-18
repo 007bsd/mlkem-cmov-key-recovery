@@ -1,0 +1,13 @@
+# python
+__pycache__/
+*.pyc
+# build artifacts
+*.o
+*.so
+# staged Docker build context (produced by neon reproduce.sh, removed after build)
+wolfssl-vuln.tar.gz
+# os / editor
+.DS_Store
+*.swp
+# WSL/Windows zone metadata
+*:Zone.Identifier

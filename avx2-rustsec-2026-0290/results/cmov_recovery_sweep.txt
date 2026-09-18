@@ -1,0 +1,43 @@
+Skipped-cmov key recovery: 10 independent keys per ML-KEM parameter set.
+Build: RUSTFLAGS="-C target-feature=+aes,+avx2,+sse2,+sse4.1,+bmi2,+popcnt" cargo build --release --features avx2[,kyber512|,kyber1024]
+Each run: full key recovered, 0 mismatches vs ground-truth sk, functional check 64/64.
+
+=== ML-KEM-512  (features: avx2,kyber512) ===
+  key  1  seed=0x9E3779B97F4A8C15  queries=2887  VERIFIED
+  key  2  seed=0x3C6EF372FE95082A  queries=2871  VERIFIED
+  key  3  seed=0xDAA66D2C7DDF843F  queries=2858  VERIFIED
+  key  4  seed=0x78DDE6E5FD2A0054  queries=2881  VERIFIED
+  key  5  seed=0x1715609F7C747C69  queries=2878  VERIFIED
+  key  6  seed=0xB54CDA58FBBEF87E  queries=2862  VERIFIED
+  key  7  seed=0x538454127B097493  queries=2883  VERIFIED
+  key  8  seed=0xF1BBCDCBFA53F0A8  queries=2886  VERIFIED
+  key  9  seed=0x8FF34785799E6CBD  queries=2881  VERIFIED
+  key 10  seed=0x2E2AC13EF8E8E8D2  queries=2876  VERIFIED
+  mean queries = 2876  over 10 keys
+
+=== ML-KEM-768  (features: avx2) ===
+  key  1  seed=0x9E3779B97F4A8C15  queries=4290  VERIFIED
+  key  2  seed=0x3C6EF372FE95082A  queries=4272  VERIFIED
+  key  3  seed=0xDAA66D2C7DDF843F  queries=4237  VERIFIED
+  key  4  seed=0x78DDE6E5FD2A0054  queries=4272  VERIFIED
+  key  5  seed=0x1715609F7C747C69  queries=4213  VERIFIED
+  key  6  seed=0xB54CDA58FBBEF87E  queries=4266  VERIFIED
+  key  7  seed=0x538454127B097493  queries=4263  VERIFIED
+  key  8  seed=0xF1BBCDCBFA53F0A8  queries=4318  VERIFIED
+  key  9  seed=0x8FF34785799E6CBD  queries=4250  VERIFIED
+  key 10  seed=0x2E2AC13EF8E8E8D2  queries=4252  VERIFIED
+  mean queries = 4263  over 10 keys
+
+=== ML-KEM-1024  (features: avx2,kyber1024) ===
+  key  1  seed=0x9E3779B97F4A8C15  queries=9704  VERIFIED
+  key  2  seed=0x3C6EF372FE95082A  queries=9597  VERIFIED
+  key  3  seed=0xDAA66D2C7DDF843F  queries=9583  VERIFIED
+  key  4  seed=0x78DDE6E5FD2A0054  queries=9685  VERIFIED
+  key  5  seed=0x1715609F7C747C69  queries=9600  VERIFIED
+  key  6  seed=0xB54CDA58FBBEF87E  queries=9715  VERIFIED
+  key  7  seed=0x538454127B097493  queries=9550  VERIFIED
+  key  8  seed=0xF1BBCDCBFA53F0A8  queries=9784  VERIFIED
+  key  9  seed=0x8FF34785799E6CBD  queries=9625  VERIFIED
+  key 10  seed=0x2E2AC13EF8E8E8D2  queries=9601  VERIFIED
+  mean queries = 9644  over 10 keys
+

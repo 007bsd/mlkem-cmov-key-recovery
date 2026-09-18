@@ -1,0 +1,53 @@
+diff --git a/Cargo.toml b/Cargo.toml
+index 679393e..7843d6b 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -54,6 +54,11 @@ kyber1024 = []
+ # **WARNING** use with caution
+ hazmat = []
+ 
++### PoC internals exposure for authorized coordinated-disclosure research.
++# Re-exports a minimal backend-agnostic surface under `pqc_kyber::poc`.
++# Not part of the shipped API; does not change any code path.
++poc = []
++
+ ### Additional features ###
+ # 90s mode uses AES256-CTR and SHA2 as primitives instead
+ # Uses a bitslice implementation
+diff --git a/src/lib.rs b/src/lib.rs
+index 229c89d..a165642 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -140,6 +140,32 @@ use reference::*;
+ #[cfg(feature = "hazmat")]
+ pub use reference::indcpa;
+ 
++// ---- PoC internals exposure (authorized coordinated-disclosure research) ----
++// Gated behind the non-default `poc` feature. Re-exports a minimal, backend-
++// agnostic surface (plain byte-slice APIs) so an external harness can act as the
++// attacker (public hashes) and establish ground truth (indcpa_dec with the real
++// sk). Enabling this feature does not alter any shipped code path.
++#[cfg(feature = "poc")]
++pub mod poc {
++    #[cfg(all(target_arch = "x86_64", feature = "avx2"))]
++    use crate::avx2 as backend;
++    #[cfg(any(not(target_arch = "x86_64"), not(feature = "avx2")))]
++    use crate::reference as backend;
++
++    pub use backend::indcpa::{indcpa_dec, indcpa_enc};
++    pub use backend::verify::{cmov, verify};
++
++    pub use crate::params::*;
++    pub use crate::symmetric::{hash_g, hash_h, kdf};
++
++    /// Which decapsulation backend this build compiled in.
++    pub const POC_BACKEND: &str = if cfg!(all(target_arch = "x86_64", feature = "avx2")) {
++        "avx2"
++    } else {
++        "reference"
++    };
++}
++
+ #[cfg(feature = "wasm")]
+ mod wasm;
+ 
