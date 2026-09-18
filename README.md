@@ -8,9 +8,8 @@ stale fork). Both crates are unmaintained and were additionally flagged as such
 [Argyle-Software/kyber#121](https://github.com/Argyle-Software/kyber/pull/121),
 [Cosmian/kyber#6](https://github.com/Cosmian/kyber/pull/6).
 
-The full technical treatment is the paper *On the Impossibility of Partially-Safe Faults in the
-Fujisaki-Okamoto Transform*, which uses this fault as its full-coverage instance. The paper link
-will be added here on release. See [Citation](#citation) below.
+This repository is the reproducibility companion to a forthcoming paper that uses this fault as its
+full-coverage instance. The reference will be added here on publication.
 
 ## Introduction
 
@@ -183,18 +182,3 @@ by [007bsd](https://github.com/007bsd), reported through
 
 Reported through the RustSec advisory database and published as the advisories above. Both crates
 are unmaintained with no fixed release; this is a post-disclosure write-up.
-
-## Citation
-
-The full write-up is the paper *On the Impossibility of Partially-Safe Faults in the
-Fujisaki-Okamoto Transform: Any Single-Coordinate Rejection Leak Recovers the Whole Key* (Bhabani
-Sankar Das). The published link will be added here on release.
-
-```bibtex
-@misc{Das26FORejection,
-  author = {Bhabani Sankar Das},
-  title  = {On the Impossibility of Partially-Safe Faults in the Fujisaki-Okamoto Transform:
-            Any Single-Coordinate Rejection Leak Recovers the Whole Key},
-  year   = {2026}
-}
-```
