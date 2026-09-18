@@ -161,6 +161,17 @@ Attack code, math, captured transcripts, and step-by-step reproduction for the k
 result (the spanning lemma, the session-count law, and the rank-climb figure) are in
 [`scripts/`](scripts/).
 
+## Test vectors
+
+Project Wycheproof ships re-encryption comparison vectors for ML-KEM-512, -768, and -1024
+([C2SP/wycheproof#274](https://github.com/C2SP/wycheproof/pull/274), merged): tampered ciphertexts
+that a conforming decapsulation must reject, returning the implicit-reject shared secret. The
+skipped-cmov fault documented here accepts every ciphertext, so it fails these vectors outright,
+returning a message-dependent value where the reject value is required. Running the standard vectors
+against a build is a quick way to check that its FO rejection actually takes effect. The vectors and
+their generator are at
+[007bsd/mlkem-implicit-rejection](https://github.com/007bsd/mlkem-implicit-rejection).
+
 ## Credits
 
 The AVX2 `cmov` FO-bypass flaw and the key-recovery demonstration at all three parameter sets are
