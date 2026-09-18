@@ -14,8 +14,8 @@ ML-KEM decryption recovers the message coordinatewise as
 m' = Compress_1(v - s^T u),
 ```
 
-where `Compress_1(x) = round(2x/q) mod 2` returns the bit that is 1 exactly when the centred lift
-of `x` lies in `(q/4, 3q/4)`. For a crafted ciphertext `c = (u, v)` the k-th recovered bit is
+where `Compress_1(x) = round(2x/q) mod 2` returns the bit that is 1 exactly when `x mod q` lies in
+`(q/4, 3q/4)`. For a crafted ciphertext `c = (u, v)` the k-th recovered bit is
 
 ```
 b_k = Compress_1( v_k - (s^T u)_k ),      (s^T u)_k = < w_k(u), s >,
@@ -39,12 +39,16 @@ vector to a single monomial:
 u_t = C * X^(n-i),   u_{t'} = 0 for t' != t,
 ```
 
-with `C` a decompressed level fixed below. The negacyclic product contributes to message
-coordinate 0 alone. Because `X^(n-i) * X^i = X^n = -1`,
+with `C` a decompressed level fixed below. The negacyclic reduction `X^(n-i) * X^i = X^n = -1`
+sends the `s_t[i]` term to message coordinate 0:
 
 ```
 (s^T u)_0 = - C * s_t[i],      so      b_0 = Compress_1( v_0 + C * s_t[i] ).
 ```
+
+The product also places the other secret coefficients in the remaining coordinates, but
+condition 1 below keeps each of those below the decode threshold, so only coordinate 0 responds to
+the `v_0` sweep.
 
 Sweeping the decompressed value `v_0` across its `2^{d_v}` compression levels, the oracle bit
 `b_0` flips exactly as `v_0 + C * s_t[i]` crosses a decode boundary at distance `q/4`; the flip
@@ -78,9 +82,9 @@ This is the law witnessed by the measurements:
 | ML-KEM-1024 | 1024 | 5 | 9644 | 9.42 |
 
 At fixed precision (`d_v = 4`) the per-coefficient cost is flat (5.62 vs 5.55), so the total is
-linear in `kn`. At ML-KEM-1024 the precision rises to `d_v = 5` and the per-coefficient cost
-roughly doubles, exactly as the `2^{d_v}` constant predicts. Cost is precision-dominated, with the
-secret dimension a secondary linear factor.
+linear in `kn`. At ML-KEM-1024 the compression precision rises (`(d_u, d_v)` from `(10, 4)` to
+`(11, 5)`) and the per-coefficient cost rises with it (5.55 to 9.42). Cost is precision-dominated,
+with the secret dimension a secondary linear factor; we do not claim a closed-form constant.
 
 ## What is verified
 

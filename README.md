@@ -4,9 +4,7 @@
 [RUSTSEC-2026-0288](https://rustsec.org/advisories/RUSTSEC-2026-0288.html) (`cosmian_kyber`, a
 stale fork). Both crates are unmaintained and were additionally flagged as such
 ([RUSTSEC-2026-0289](https://rustsec.org/advisories/RUSTSEC-2026-0289.html),
-[RUSTSEC-2026-0287](https://rustsec.org/advisories/RUSTSEC-2026-0287.html)). Advisory PRs:
-[Argyle-Software/kyber#121](https://github.com/Argyle-Software/kyber/pull/121),
-[Cosmian/kyber#6](https://github.com/Cosmian/kyber/pull/6).
+[RUSTSEC-2026-0287](https://rustsec.org/advisories/RUSTSEC-2026-0287.html)).
 
 This repository is the reproducibility companion to a forthcoming paper that uses this fault as its
 full-coverage instance. The reference will be added here on publication.
@@ -56,6 +54,7 @@ One defect, in two crates that share the code, reachable only on the opt-in AVX2
 | Defect | AVX2 `cmov` blend selector is a no-op; FO rejection copy is skipped | same defect (stale fork of the above) |
 | Reachable | `avx2` feature (non-default), x86-64, via public `decapsulate` | same |
 | Fixed release | none; crate unmaintained (last 0.7.1) | none; unmaintained fork |
+| Fix PR (open) | [Argyle-Software/kyber#121](https://github.com/Argyle-Software/kyber/pull/121) | [Cosmian/kyber#6](https://github.com/Cosmian/kyber/pull/6) |
 | Also flagged | unmaintained ([RUSTSEC-2026-0289](https://rustsec.org/advisories/RUSTSEC-2026-0289.html)) | unmaintained ([RUSTSEC-2026-0287](https://rustsec.org/advisories/RUSTSEC-2026-0287.html)) |
 
 Full secret-key recovery, 10 independent keys per parameter set, using only the public key and the
@@ -94,7 +93,7 @@ release: migrate to a maintained ML-KEM implementation.
 ### What can an attacker do?
 
 Recover the entire ML-KEM secret key on any of the three parameter sets, using only the public key
-and crafted decapsulation queries, in a few thousand queries (mean 2876 / 4263 / 9644 for
+and crafted decapsulation queries, in thousands of queries (mean 2876 / 4263 / 9644 for
 ML-KEM-512 / -768 / -1024). The oracle is a complete plaintext-checking oracle, so the recovery is
 exact, not statistical: every one of the ten keys per parameter set was recovered with zero
 coefficient mismatches against ground truth.
@@ -123,7 +122,7 @@ chosen-`u` ciphertexts a plaintext-checking or key-mismatch attack needs are rej
 is recovered instead by regressing the decryption noise leaked in the unchecked `v`-coefficients
 (partial coverage, roughly 10^5 to 10^6 queries). Here the `cmov` fault validates nothing, `u` is
 free, and recovery is the direct coefficient-isolating oracle attack (full coverage, `Theta(kn)`,
-a few thousand queries). The two are the full-coverage and partial-coverage extremes of one result:
+thousands of queries). The two are the full-coverage and partial-coverage extremes of one result:
 any rejection-check leak of coverage at least one recovers the whole key. That unification is the
 subject of the paper.
 
@@ -172,8 +171,8 @@ by [007bsd](https://github.com/007bsd), reported through
 
 ## References
 
-1. RustSec. [RUSTSEC-2026-0290](https://rustsec.org/advisories/RUSTSEC-2026-0290.html) (`pqc_kyber`, key recovery) and [RUSTSEC-2026-0289](https://rustsec.org/advisories/RUSTSEC-2026-0289.html) (unmaintained). Advisory PR [Argyle-Software/kyber#121](https://github.com/Argyle-Software/kyber/pull/121).
-2. RustSec. [RUSTSEC-2026-0288](https://rustsec.org/advisories/RUSTSEC-2026-0288.html) (`cosmian_kyber`, key recovery) and [RUSTSEC-2026-0287](https://rustsec.org/advisories/RUSTSEC-2026-0287.html) (unmaintained). Advisory PR [Cosmian/kyber#6](https://github.com/Cosmian/kyber/pull/6).
+1. RustSec. [RUSTSEC-2026-0290](https://rustsec.org/advisories/RUSTSEC-2026-0290.html) (`pqc_kyber`, key recovery) and [RUSTSEC-2026-0289](https://rustsec.org/advisories/RUSTSEC-2026-0289.html) (unmaintained). Fix PR (open) [Argyle-Software/kyber#121](https://github.com/Argyle-Software/kyber/pull/121).
+2. RustSec. [RUSTSEC-2026-0288](https://rustsec.org/advisories/RUSTSEC-2026-0288.html) (`cosmian_kyber`, key recovery) and [RUSTSEC-2026-0287](https://rustsec.org/advisories/RUSTSEC-2026-0287.html) (unmaintained). Fix PR (open) [Cosmian/kyber#6](https://github.com/Cosmian/kyber/pull/6).
 3. D. Hofheinz, K. Hovelmanns, E. Kiltz. A Modular Analysis of the Fujisaki-Okamoto Transformation. TCC 2017. [ePrint 2017/604](https://eprint.iacr.org/2017/604).
 4. P. Ravi, S. S. Roy, A. Chattopadhyay, S. Bhasin. Generic Side-channel Attacks on CCA-secure lattice-based PKE and KEMs. TCHES 2020(3). [ePrint 2019/948](https://eprint.iacr.org/2019/948).
 5. Y. Qin, C. Cheng, X. Zhang, Y. Pan, L. Hu, J. Ding. A Systematic Approach and Analysis of Key Mismatch Attacks on Lattice-Based NIST Candidate KEMs. ASIACRYPT 2021. [ePrint 2021/123](https://eprint.iacr.org/2021/123).

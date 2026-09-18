@@ -55,7 +55,7 @@ cargo run --release
 
 Set `KYBER_SEED=0x...` to choose the deterministic key (any 64-bit hex). The driver
 `code/reproduce.sh` runs 10 distinct keys per parameter set and prints the results table; copy it
-next to `kyber_poc/` (or run it from there).
+into `kyber_poc/` and run it from there, or run it with `POC_DIR` set to the `kyber_poc/` path.
 
 ## Expected result (avx2 build)
 
