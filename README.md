@@ -70,7 +70,7 @@ ciphertexts.
 | ML-KEM-1024 | 1024 | (11, 5) | 9644 | 9550-9784 | 10/10 |
 
 Backend-specific detail, math, and reproduction are in
-[`avx2-rustsec-2026-0290/`](avx2-rustsec-2026-0290/).
+[`avx2-cmov/`](avx2-cmov/).
 
 ## FAQ
 
@@ -110,7 +110,7 @@ compressed value of `v_0` and watching the oracle bit flip locates a decode boun
 `C * s_t[i]` to the compression grid and identifies `s_t[i]` in `{-eta1, ..., eta1}`. There are
 `kn` coefficients, giving `Theta(kn)` queries, with the constant set by the compression precision.
 Full derivation:
-[`avx2-rustsec-2026-0290/RECOVERY_ANALYSIS.md`](avx2-rustsec-2026-0290/RECOVERY_ANALYSIS.md).
+[`avx2-cmov/RECOVERY_ANALYSIS.md`](avx2-cmov/RECOVERY_ANALYSIS.md).
 
 ### How is this different from the wolfSSL incomplete-comparison key recovery?
 
@@ -137,7 +137,7 @@ full recovery and, before reporting any number, checks the recovered key two way
 crate's own ground-truth secret (0 coefficient mismatches) and against reference decryption on 64
 random ciphertexts (64/64). This passes on all ten keys at each of ML-KEM-512, -768, and -1024.
 Transcripts:
-[`avx2-rustsec-2026-0290/results/`](avx2-rustsec-2026-0290/results/).
+[`avx2-cmov/results/`](avx2-cmov/results/).
 
 ### How do I fix it?
 
@@ -158,7 +158,7 @@ wolfSSL case above.
 ## Reproduction
 
 Attack code, math, captured transcripts, and step-by-step reproduction are in
-[`avx2-rustsec-2026-0290/`](avx2-rustsec-2026-0290/).
+[`avx2-cmov/`](avx2-cmov/).
 
 ## Credits
 
