@@ -157,8 +157,10 @@ wolfSSL case above.
 
 ## Reproduction
 
-Attack code, math, captured transcripts, and step-by-step reproduction are in
-[`avx2-cmov/`](avx2-cmov/).
+Attack code, math, captured transcripts, and step-by-step reproduction for the key recovery are in
+[`avx2-cmov/`](avx2-cmov/). The reduced-parameter model experiments behind the paper's impossibility
+result (the spanning lemma, the session-count law, and the rank-climb figure) are in
+[`scripts/`](scripts/).
 
 ## Credits
 
