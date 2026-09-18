@@ -34,7 +34,7 @@ def sessions_to_full(n, k, Tsize, seed):
     return -1
 
 print(f"{'n':>3}{'k':>3}{'dim':>5}{'|T|':>5}{'avg_sessions':>14}{'dim/|T|':>9}{'always_full':>13}")
-for (n, k) in [(16, 2), (16, 3), (8, 4)]:
+for (n, k) in [(16, 2), (16, 3), (16, 4)]:
     dim = k*n
     for Tsize in [1, 2, 4, 8]:
         if Tsize > n: continue
