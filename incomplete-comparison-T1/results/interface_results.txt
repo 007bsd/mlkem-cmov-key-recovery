@@ -1,0 +1,11 @@
+Interface-level |T|=1 full key recovery (real kyber-py _k_pke_decrypt, 1 key/set, seed 1)
+Each observation = [Dec(c')==m0] via overwrite-v-coord + binary-search over 2^dv grid; mismatch=0 on all verified reads.
+
+Param        sessions    queries  decaps/rd result
+ML-KEM-512      75000     375150       5.00 s=512/512 FULL
+ML-KEM-768      90000     450008       5.00 s=768/768 FULL
+ML-KEM-1024     28000     195906       7.00 s=1024/1024 FULL
+
+Windowed-identifiability bound R>=(2*Delta/c)*sqrt(2kn)*ln(8*eta*kn), c~0.8:
+  512: ~1.6e5 (meas 75k, 2.1x)   768: ~1.9e5 (meas 90k, 2.1x)   1024: ~1.1e5 (meas 28k, 4x)
+Info floor H/I ~3.5k/5.3k/3.6k -> measured/floor ~21x/17x/8x
