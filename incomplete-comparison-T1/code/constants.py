@@ -41,16 +41,14 @@ for p,(k,du,dv,eta1) in P.items():
     sw=(0.5*(var_s+var_r))**0.5; x=(Delta/sw)**2
     print(f"ML-KEM-{p}: (Delta/sw)^2={x:.0f}  measured={meas[p]}  kappa={meas[p]/x:.2f}")
 
-# Identifiability threshold R* = max(small-d, large-d) union-bound contributions (Appendix B):
-#   c = sigma_min/sqrt(3)  (Holder + platykurtic 4th moment; valid at every support, unlike Gaussian)
-#   small-d:  R ~ (2*Delta/c) ln(8 eta1 kn) sqrt(2kn)
-#   large-d:  R ~ 2kn ln(8 eta1 kn) / ln(1/beta0),  beta0 ~ 0.81 (Paley-Zygmund)
-print("\n# Identifiability threshold R* (c=sigma_min/sqrt3, Paley-Zygmund beta0=0.81)")
-b0=0.81
+# Identifiability threshold R* (Appendix B, three regimes; binding = MIDDLE regime):
+#   c = sigma_min/sqrt(3)  (Holder + platykurtic 4th moment; valid at every support)
+#   middle regime worst constant beta1 = 1 - 0.094*sigma_Y/Delta at sigma_Y=0.3*Delta -> ~0.972
+#   R* ~ 2kn ln(8 eta1 kn) / ln(1/beta1)   (dominates small/large regimes)
+print("\n# Identifiability threshold R* (three regimes; middle regime binding, beta1~0.972)")
+beta1=1-0.094*0.3   # ~0.972 at the bottom of the middle regime
 for p,(k,du,dv,eta1) in P.items():
-    kn=k*256; Delta=Q/2**dv
-    var_r=eta1/2.0; var_du=(Q/2**(du+1))**2/3.0; var_s=1.0+var_du
-    sig_min=np.sqrt(min(var_r,var_s)); c=sig_min/np.sqrt(3); ln=np.log(8*eta1*kn)
-    Rs=(2*Delta/c)*ln*np.sqrt(2*kn); Rl=2*kn*ln/np.log(1/b0); R=max(Rs,Rl)
+    kn=k*256; ln=np.log(8*eta1*kn)
+    R=2*kn*ln/np.log(1/beta1)
     m={512:75000,768:90000,1024:28000}[p]
-    print(f"ML-KEM-{p}: c={c:.2f}  R_small={Rs:.2g}  R_large={Rl:.2g}  R*={R:.2g}  R*/meas={R/m:.1f}x")
+    print(f"ML-KEM-{p}: R*~{R:.2g}  R*/meas={R/m:.0f}x")
