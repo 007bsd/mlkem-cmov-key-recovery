@@ -41,15 +41,16 @@ for p,(k,du,dv,eta1) in P.items():
     sw=(0.5*(var_s+var_r))**0.5; x=(Delta/sw)**2
     print(f"ML-KEM-{p}: (Delta/sw)^2={x:.0f}  measured={meas[p]}  kappa={meas[p]/x:.2f}")
 
-# Corrected small-d identifiability constant c = block-min E|entry| (NOT Gaussian sigma*sqrt(2/pi)),
-# and the resulting small-d union-bound threshold R = (Delta/c) ln(8 eta1 kn) sqrt(2kn).
-print("\n# Corrected small-d threshold (block-min E|entry|)")
-rng=np.random.default_rng(1)
+# Identifiability threshold R* = max(small-d, large-d) union-bound contributions (Appendix B):
+#   c = sigma_min/sqrt(3)  (Holder + platykurtic 4th moment; valid at every support, unlike Gaussian)
+#   small-d:  R ~ (2*Delta/c) ln(8 eta1 kn) sqrt(2kn)
+#   large-d:  R ~ 2kn ln(8 eta1 kn) / ln(1/beta0),  beta0 ~ 0.81 (Paley-Zygmund)
+print("\n# Identifiability threshold R* (c=sigma_min/sqrt3, Paley-Zygmund beta0=0.81)")
+b0=0.81
 for p,(k,du,dv,eta1) in P.items():
     kn=k*256; Delta=Q/2**dv
-    r=rng.integers(0,2,(400000,eta1)).sum(1)-rng.integers(0,2,(400000,eta1)).sum(1)
-    e1=rng.integers(0,2,(400000,2)).sum(1)-rng.integers(0,2,(400000,2)).sum(1)
-    dub=round(Q/2**(du+1)); du_e=rng.uniform(-dub,dub,400000)
-    c=min(np.abs(r).mean(), np.abs(e1+du_e).mean())
-    R=(Delta/c)*np.log(8*eta1*kn)*np.sqrt(2*kn)
-    print(f"ML-KEM-{p}: c=min block E|entry|={c:.2f}  R_smalld~{R:.2g}  measured={ {512:75000,768:90000,1024:28000}[p]}")
+    var_r=eta1/2.0; var_du=(Q/2**(du+1))**2/3.0; var_s=1.0+var_du
+    sig_min=np.sqrt(min(var_r,var_s)); c=sig_min/np.sqrt(3); ln=np.log(8*eta1*kn)
+    Rs=(2*Delta/c)*ln*np.sqrt(2*kn); Rl=2*kn*ln/np.log(1/b0); R=max(Rs,Rl)
+    m={512:75000,768:90000,1024:28000}[p]
+    print(f"ML-KEM-{p}: c={c:.2f}  R_small={Rs:.2g}  R_large={Rl:.2g}  R*={R:.2g}  R*/meas={R/m:.1f}x")
