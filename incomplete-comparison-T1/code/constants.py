@@ -30,3 +30,11 @@ for p,(k,du,dv,eta1) in P.items():
     print(f"ML-KEM-{p}: sigma_sig={sigma_sig:.1f}  sigma_w in [{sw_min:.2f},{sw_avg:.2f}]  "
           f"c in [{c_min:.2f},{c_avg:.2f}]  Delta={Delta:.0f}  R_suf~{Rlo:.2g}-{Rhi:.2g}  I(cell)={I:.2f}b  "
           f"floor H/I={(2*kn* ( -(0.5*eta1/(2*eta1+1)) ) if False else 0):.0f}")
+
+# Least-squares heuristic R ~ kappa*(Delta/sigma_w)^2 vs measured interface counts
+print("\n# LS heuristic: R ~ kappa*(Delta/sigma_w)^2")
+meas={512:75000,768:90000,1024:28000}
+for p,(k,du,dv,eta1) in P.items():
+    kn=k*256; Delta=Q/2**dv; var_r=eta1/2.0; var_du=(Q/2**(du+1))**2/3.0; var_s=1.0+var_du
+    sw=(0.5*(var_s+var_r))**0.5; x=(Delta/sw)**2
+    print(f"ML-KEM-{p}: (Delta/sw)^2={x:.0f}  measured={meas[p]}  kappa={meas[p]/x:.2f}")
