@@ -44,12 +44,12 @@ The equivalent iid short-coefficient model agrees over five random keys (~70,000
 > multi-key robustness is shown on the fast model). Only the session count is key-dependent; the
 > decaps/read and the bit-for-bit match to `_k_pke_decrypt` are structural.
 
-The right yardstick is not the `2kn` unknown count but the information floor `H(s,e)/I` (secret
-entropy over bits fixed per read): about `3.5k / 5.3k / 3.6k` sessions for 512 / 768 / 1024. The
-measured counts sit `~20x / 17x / 9.5x` above that floor; the gap is least-squares solver
-inefficiency, not missing information (a BP or lattice solver in the HPP21 / Delvaux22 line would
-close part of it, not run here). Each read carries well under one bit about the secret (a
-±q/2^(dv+1) window on a std-≈47 quantity). ML-KEM-1024 is cheapest: its finer grid (dv=5) halves
+A closer yardstick is the windowed-identifiability threshold `~(Delta/sigma_w)*sqrt(2kn)*ln(8*eta1*kn)`
+~ `6e4 / 8e4 / 5e4` (see `code/constants.py`), the same order as the measured `75k / 90k / 28k`,
+which straddle it. Against the looser raw information floor `H(s,e)/I` ~ `3.5k / 5.3k / 3.6k`, the
+measured interface counts (75k/90k/28k) sit `~21x / 17x / 8x` above; a BP or lattice solver in the
+HPP21 / Delvaux22 line would close part of that gap (not run here). Each read carries well under one
+bit about the secret (a ±q/2^(dv+1) window on a std-≈47 quantity). ML-KEM-1024 is cheapest: its finer grid (dv=5) halves
 the read noise and so raises the per-read information. This is the same regime as 2026/1682's
 `|T|~51` recovery (`10^5-10^6` queries). The session count scales as `2kn/|T|`; a coverage sweep at
 ML-KEM-1024 confirms it:

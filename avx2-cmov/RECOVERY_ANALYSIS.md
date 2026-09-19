@@ -1,7 +1,8 @@
 # Coefficient-isolation recovery from the induced oracle
 
-This is the constructive companion to the paper's impossibility theorem: it documents exactly
-what `code/main.rs` computes and why the query count takes the measured value. Notation follows
+This is the constructive companion to the paper's coefficient-isolation recovery (Appendix A of
+"One Unverified Coordinate Is Enough"): it documents exactly what `code/main.rs` computes and why
+the query count takes the measured value. Notation follows
 ML-KEM / FIPS 203: the ring is `R_q = Z_q[X]/(X^n + 1)` with `n = 256`, `q = 3329`; the secret is
 a module vector `s` of rank `k`; `u` is the ephemeral vector and `v` the scalar part of a
 ciphertext `c = (u, v)`.
@@ -22,9 +23,9 @@ b_k = Compress_1( v_k - (s^T u)_k ),      (s^T u)_k = < w_k(u), s >,
 ```
 
 where `w_k(u)` collects the coefficients of `u` under the negacyclic action `X^n = -1`. Each
-query thus reads one adversary-known linear functional of the secret. The family of these
-functionals, as `u` ranges over the set of ciphertexts the fault accepts, is exactly the
-functional family `W(S)` whose span the paper's spanning lemma establishes.
+query thus reads one adversary-known linear functional of the secret. Because the full-coverage
+`cmov` fault accepts every ciphertext, the attacker chooses `u` freely and isolates one secret
+coefficient per query (Appendix A), recovering `s` in `Theta(kn)` queries.
 
 Under the full-coverage `cmov` fault the induced oracle returns a known function of
 `m' = Dec(dk, c)` on every `c`, so the attacker learns every bit `b_k`. (Under a partial fault it
