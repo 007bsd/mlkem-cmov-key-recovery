@@ -6,8 +6,10 @@ stale fork). Both crates are unmaintained and were additionally flagged as such
 ([RUSTSEC-2026-0289](https://rustsec.org/advisories/RUSTSEC-2026-0289.html),
 [RUSTSEC-2026-0287](https://rustsec.org/advisories/RUSTSEC-2026-0287.html)).
 
-This repository is the reproducibility companion to a forthcoming paper that uses this fault as its
-full-coverage instance. The reference will be added here on publication.
+This repository is the reproducibility companion to
+[Cryptology ePrint Archive, Paper 2026/2239](https://eprint.iacr.org/2026/2239)
+(local copy in [`paper/`](paper/)), which uses this fault as its full-coverage instance. See
+[Citation](#citation) below.
 
 ## Introduction
 
@@ -197,3 +199,19 @@ by [007bsd](https://github.com/007bsd), reported through
 
 Reported through the RustSec advisory database and published as the advisories above. Both crates
 are unmaintained with no fixed release; this is a post-disclosure write-up.
+
+## Citation
+
+The full write-up is published as
+[Cryptology ePrint Archive, Paper 2026/2239](https://eprint.iacr.org/2026/2239)
+(local copy: [`paper/`](paper/)).
+
+```bibtex
+@misc{cryptoeprint:2026/2239,
+      author = {Bhabani Sankar Das},
+      title = {One Unverified Coordinate Is Enough: Key Recovery from Faulty Fujisaki–Okamoto Rejection Checks in {ML}-{KEM}},
+      howpublished = {Cryptology {ePrint} Archive, Paper 2026/2239},
+      year = {2026},
+      url = {https://eprint.iacr.org/2026/2239}
+}
+```
