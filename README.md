@@ -200,6 +200,15 @@ by [007bsd](https://github.com/007bsd), reported through
 Reported through the RustSec advisory database and published as the advisories above. Both crates
 are unmaintained with no fixed release; this is a post-disclosure write-up.
 
+## Responsible use
+
+This proof of concept is published for security research and education. Because neither crate
+has a fixed release, anyone depending on `pqc_kyber` or `cosmian_kyber` should disable the
+non-default `avx2` feature or migrate to a maintained ML-KEM implementation such as RustCrypto
+[`ml-kem`](https://crates.io/crates/ml-kem). Only run this code against systems or software you
+own or are explicitly authorized to test; unauthorized testing may be illegal. The code is
+provided under the MIT License without warranty, and the author accepts no liability for misuse.
+
 ## Citation
 
 The full write-up is published as
